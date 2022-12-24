@@ -1,0 +1,425 @@
+
+
+DBMS: Database Management System
+
+used to manage large data in an efficient way 
+we need DBMS
+
+Database: to store large amount of data
+ 
+NOTE:
+
+==> any name used for database,table or cols cant contain space
+==> There is only one databse for aone website/app/software
+==> however there may more than 1 table in that one database
+
+DBMS uses some queries to solve this
+
+
+
+SQL(Structured Query Language)
+
+Types:
+
+1. DDL: Data Definition language
+
+Commands:
+	1.create
+
+	==> create database databaseName
+
+	 => CREATE table tableName 
+		(
+			for id you need this AUTO_INCREMENT
+this is always id===>   col-name1 datatype(size) AUTO_INCREMENT,
+	
+			col-name1 datatype(size) ,
+			col-name1 datatype(size),
+			col-name1 datatype(size),
+
+
+		)
+
+
+example:
+
+CREATE table users 
+		(
+			user_id int(50) primary key AUTO_INCREMENT,
+			username varchar(100),
+			u_email varchar(200),
+			u_mobile varchar(200),
+			u_pwd varchar(200),
+			u_address varchar(255)
+
+
+		)
+
+
+==========================================================
+use databseName;
+CREATE table users123
+		(
+			user_id int(50) primary key AUTO_INCREMENT,
+			username varchar(100),
+			u_email varchar(200),
+			u_mobile varchar(200),
+			u_pwd varchar(200),
+			u_address varchar(255)
+
+
+		)
+	
+	2.drop
+	to delete the whole table/database	
+	=> drop table tablename
+	=> drop database databseName
+
+
+	3.alter
+
+		ALTER TABLE tableName ADD colName type(size)
+
+		ALTER TABLE tableName CHANGE Old_colName New_colName type(size),
+
+Ex.
+	1 ) ALTER TABLE guests ADD  guest_address varchar(244)
+
+
+	2)  ALTER TABLE guests CHANGE guset_name guest_Name varchar(123)
+
+	4.truncate
+
+	=>to delete the not whole table BUT JUST THE DATA INSIDE
+
+	truncate table tableName;
+=>>>	this will delete all records of that table 
+	not the table itself
+
+
+
+
+
+ 
+DMl: ( Data Manipulation Language )
+
+==> 
+
+	1)INSERT
+	
+	=> INSERT INTO TABLENAME (col1,col2,col3,..,colN) VALUES("val1",'val2','val3',..,'valN');
+
+	
+	2)DELETE
+
+
+	=> delete from tablename (same as Truncate)
+
+	DELETE with WHERE clause
+
+	=> delete from tablename WHERE colname = 'value'
+
+	
+	 
+	3)UPDATE 
+
+	=>  UPDATE TABLENAME SET colname ='value'
+
+	UPDATE with WHERE clause
+
+	=>  UPDATE TABLENAME SET colname ='value' WHERE colname = 'value'
+	=>  update users set colname1='value',colname2='value' where colname='value'
+
+
+	Constraints: (Restriction when there is some redudant(duplicate) data)
+
+	PRIMARY key : 
+	
+	=> used to identify all records uniquely
+	=> Per table there is only one primary key ( cant be more than one)	
+
+		EX. 
+	
+
+			colname type(size) PRIMARY KEY auto_increment;
+
+	UNIQUE key : 
+	
+	=> used to identify all records uniquely
+	=> this may be more than one per table
+
+
+
+	TABLE Person
+	
+	id(PK) firstName lastName Mobile Email Address 
+
+	FOREIGN key
+
+	=> used to create relation between tables (2 or more than 2)
+	=> it refers to PK of another table
+
+
+	foreign key tabl1(colName) REFERENCES table2_col(primary_key)
+
+
+
+	
+
+	DQl: (data Query language)
+
+	Select : (* means ALL)
+
+	select * from tableName; ==> return all records of that table
+	
+	=> Select with Where clause
+
+	select * from tableName WHERE col-name = 'value';
+
+	select colName1,colName2 tableName where col-name ='value';
+
+
+	==> where with Operators
+
+
+	SELECT * FROM `products` WHERE prd_price>2000
+	SELECT colName FROM `products` WHERE colName = 'value';
+
+	=> Select with GROUP BY clause
+
+	
+	SELECT colName FROM tableNAme GROUP BY colName
+
+	=> Select with ORDER BY clause
+
+	
+	SELECT colName FROM tableNAme ORDER BY colName
+
+	SELECT colName FROM tableNAme ORDER BY colName ASC;
+	SELECT colName FROM tableNAme ORDER BY colName DESC;
+
+
+	JOIN : to fetch data from 2 or more than two tables
+
+	1. Inner JOIN (Join)
+
+	==> select * from table1 INNER JOIN table2 ON table1.fk = table2.PK
+	==> select * from table1 JOIN table2 ON table1.fk = table2.PK
+
+
+	for more than 2 tables:
+
+	=> select * from table1 JOIN table2 ON tabl1.fk = tabl2.PK
+
+	=> select * from table1
+	 JOIN table2 ON table1.fk = table2.PK
+	JOIN table3 ON table1.fk = table3.PK
+
+	==> select tabl1.colname1,table1,colname2,table2.colName,table3.colName
+	
+	from table1
+
+	join table2 ON table1.FK = table2.PK
+	join table3 On table1.FK = table3.PK
+
+	EX. select * from products
+		JOIN category ON products.cate_id = category.cate_id 
+		JOIN subcategory ON products.subCate_id = subcategory.subCate_id;
+
+	ex.
+
+	select 
+	category.cate_Name,subcategory.subcate_name,products.prd_name,products.prd_price from products
+		JOIN category ON products.cate_id = category.cate_id 
+		JOIN subcategory ON products.subCate_id = subcategory.subCate_id;
+
+	2. left JOin
+	3. right join
+	4. full join
+
+
+Search  data:
+
+select * from table where colname like 's%'; 
+
+=> return all recrods that starts with letter s
+
+select * from table where colname like '%s';
+
+=> return all recrods that ends with letter s
+
+select * from table where colname like '_s%';
+
+
+=> return all recrods in which s at 2nd position
+
+
+select * from table where colname like '__s%';
+
+=> return all recrods in which s at 3nd position
+
+
+select * from table where colname like '%s%';
+
+=> return all recrods in which s at ANY position
+
+
+===>  Create an index on a table :
+
+
+The CREATE INDEX statement will create indexes in tables.
+ Indexes are used for data procurement from the databases faster. 
+The users cannot see the indexes, they are running in the background of queries,
+ used to speed up searches/queries.
+
+
+
+CREATE INDEX indexname
+ON tablename (columnname1, columnname2, ...);
+
+
+
+
+
+In SQL, a cursor is a temporary workstation that is 
+allocated by the database server during the execution
+ of a statement. It is a database object that allows us
+ to access data of one row at a time. 
+This concept of SQL is useful when the user wants 
+to update the rows of the table one by one.
+
+	==> To generate copy of a table
+
+	we need to create view
+
+	Syantax :
+
+	Create view View_name (this name can be anyName) AS Select * from tableName(this is the table you want to copy)
+
+
+
+	=> Trigger:
+
+	for current Date and Time use type Timestamp
+
+ex. date_time timestamp (colname type(size))
+
+	Used when data shared and if someone tries to perform DML queries(inser,update,delete)
+
+	Syntax :
+
+	CREATE TRIGGER triggerName (after/before) (insert/update/delete)
+	 ON tableName FOR EACH ROW
+
+	EX.
+
+	
+	CREATE TRIGGER insert_trigger AFTER INSERT ON test1 FOR EACH ROW 
+
+	BEGIN
+
+	 INSERT INTO trigger_table (chk_name,action_performed)
+			 VALUES (new.t_name,'Record inserted...!');	
+	 END;
+
+
+
+	
+	Stored Procedures:
+
+1. fetch Data
+
+DELIMITER $$
+
+CREATE PROCEDURE procedure-name()
+BEGIN
+    select * from tablename;
+END
+
+$$
+
+CALL procedure-name();
+
+CALL procedure-name();
+
+CALL procedure-name();
+
+
+2. Insert data
+
+
+DELIMITER $$
+
+CREATE PROCEDURE procedure-name()
+BEGIN
+    insert into  tablename () values(); 
+END
+
+$$
+
+
+CALL procedure-name();
+
+CALL procedure-name();
+
+CALL procedure-name();
+
+
+3. Insert Different data 
+
+
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE ins_multi_data (IN col-name type(size))
+
+BEGIN
+    INSERT INTO employees (original_col-name) VALUES (col-name);
+END
+
+$$
+example:
+
+
+DELIMITER $$ 
+
+CREATE PROCEDURE ins_multi_data (IN e_nm varchar(100), In e_adrs varchar(200))
+
+BEGIN
+    INSERT INTO employees (emp_name,emp_address) VALUES ( e_nm,e_adrs);
+END
+
+
+
+$$
+
+
+call ins_multi_data('name1','adrs1');
+
+call ins_multi_data('name2','adrs2');
+
+call ins_multi_data('name3','adrs2');
+
+call ins_multi_data('name4','adrs3');
+
+call ins_multi_data('name5','adrs4');
+
+
+DCL (DATA CONTROL LANGUAGE)
+
+DCL commands Examples are
+GRANT – It permits users to access the database.
+REVOKE – This DCL command withdraws the permission given by GRANT to access the database.
+
+TCL (TRANSACTION CONTROL LANGUAGE)
+
+COMMIT –  This TCL command will commit the running transaction
+ROLLBACK – Rollback the current transaction 
+SAVEPOINT – You can set a save point so that next time, it will start from here
+SET TRANSACTION – Specify the characteristics of the transactions 
+
+
+
+
